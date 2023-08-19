@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Homefooter from "./components/Homefooter";
+import HomeNav from "./components/HomeNav";
+import Homepage from "./components/Homepage";
+import About from "./components/About";
+import Note from "./components/Note";
+import React, { useState } from "react";
 
-function App() {
+export default function App() {
+  const [page, SetPage] = useState(true);
+  const [showHome, SetShowHome] = useState(true);
+  const [noteName, setNoteName] = useState();
+  const [noteIndex, setNoteIndex] = useState(0);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <HomeNav SetPage={SetPage} SetShowHome={SetShowHome} />
+      {page ? (
+        showHome ? (
+          <Homepage
+            SetShowHome={SetShowHome}
+            setNoteIndex={setNoteIndex}
+            setNoteName={setNoteName}
+          />
+        ) : (
+          <Note noteName={noteName} noteIndex={noteIndex} />
+        )
+      ) : (
+        <About />
+      )}
+      <Homefooter />
     </div>
   );
 }
-
-export default App;
